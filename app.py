@@ -6,9 +6,7 @@ from datetime import datetime
 import os  # ✅ add this at the top
 
 # ✅ replace your existing app.run() with this
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # fallback for local dev
-    app.run(host="0.0.0.0", port=port)
+
 
 app = Flask(__name__)
 API_KEY = "a914daeff19033d64653a6aebe154296"  # Replace this
@@ -117,4 +115,5 @@ def export():
     return send_file("weather_export.csv", as_attachment=True)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # fallback for local dev
+    app.run(host="0.0.0.0", port=port)
