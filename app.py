@@ -38,7 +38,6 @@ def get_weather(location):
         "lon": res["coord"]["lon"]
     }
     return data
-
 # --- 5-day forecast ---
 def get_forecast(location):
     url = f"http://api.openweathermap.org/data/2.5/forecast?q={location}&appid={API_KEY}&units=metric"

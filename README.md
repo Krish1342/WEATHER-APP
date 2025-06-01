@@ -117,4 +117,3 @@ Click **Export to CSV** to download all stored weather queries in one click.
 
 Watch the app in action here:  
 👉 [Click to view demo](https://drive.google.com/file/d/1E6rFLiqy0FvI3vLSpQURRuuytRBsg7Un/view?usp=sharing)
-
