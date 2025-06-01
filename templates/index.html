@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Weather App By Krish Lodha</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="../static/index.css" rel="stylesheet">
+  </head>
+
+  <body class="p-4" id="body">
+    <!-- Info Tooltip -->
+<div class="info">ℹ️</div>
+
+<!-- Theme Toggle Button -->
+<div class="toggle">
+  <button class="btn btn-outline-secondary btn-sm" onclick="toggleTheme()">🌗 Toggle Mode</button>
+</div>
+
+
+    <h1 class="mb-4">🌤️ Weather App By Krish Lodha</h1>
+
+    <!-- Location Form -->
+    <form method="POST" class="mb-3 d-flex gap-2 justify-content-center">
+      <input
+        type="text"
+        name="location"
+        class="form-control"
+        placeholder="Enter location..."
+        required
+        style="max-width: 300px;"
+      />
+      <button class="btn btn-primary">Get Weather</button>
+    </form>
+
+    <!-- Current Weather -->
+    {% if weather %}
+    <div class="card p-3 mb-4 text-center">
+      <h4>{{ weather.location }}</h4>
+      <p>Temperature: {{ weather.temperature }}°C</p>
+      <p>Description: {{ weather.description }}</p>
+      <img src="http://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" class="weather-icon" />
+    </div>
+    {% endif %}
+
+    <!-- Forecast -->
+    {% if forecast %}
+    <div class="mb-4">
+      <h5 class="text-center">5-Day Forecast</h5>
+      <div class="forecast-grid">
+        {% for f in forecast %}
+        <div class="forecast-card text-center">
+          <p><strong>{{ f.dt_txt.split(" ")[0] }}</strong></p>
+          <img src="http://openweathermap.org/img/wn/{{ f.weather[0].icon }}@2x.png" class="forecast-icon" />
+          <p>{{ f.main.temp }}°C</p>
+          <p>{{ f.weather[0].description }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <hr />
+
+    <!-- Saved Records -->
+    <h4 class="text-center">Saved Weather Records</h4>
+    <table class="table table-striped table-bordered mt-3 text-center">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>Location</th>
+          <th>Date</th>
+          <th>Temp (°C)</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in saved_data %}
+        <tr>
+          <td>{{ row[0] }}</td>
+          <td>{{ row[1] }}</td>
+          <td>{{ row[2] }}</td>
+          <td>{{ row[3] }}</td>
+          <td>{{ row[4] }}</td>
+          <td>
+            <a href="/update/{{ row[0] }}" class="btn btn-sm btn-warning">Update</a>
+            <a href="/delete/{{ row[0] }}" class="btn btn-sm btn-danger">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="text-center">
+      <a href="/export" class="btn btn-success mt-3">Export to CSV</a>
+    </div>
+
+    <!-- Theme Toggle Script -->
+    <script>
+      function toggleTheme() {
+        document.getElementById("body").classList.toggle("dark-mode");
+      }
+    </script>
+  </body>
+</html>
